@@ -1,3 +1,5 @@
+When the "Restrict Endpoint to Authenticated Users" option is on in the WordPress [WPGraphQL plugin General Settings](https://test.alephsf.com/wp-admin/admin.php?page=graphql-settings), we must use auth in the `gatsby-source-wordpress` options. `gatsby build` works with only statically generated pages. However when you add an SSR page, it triggers the `Building Rendering Engines` and `Validating Rendering Engines` build steps, and the `Validating Rendering Engines` step fails. This was traced back to a problem with the `gatsby-source-wordpress` auth. The build works by deleting line 125 `delete pluginOptions.auth;` from `gatsby-source-wordpress/dist/steps/process-and-validate-plugin-options.js`, although this line prevents the auth from appearing in the bundle. The builds will also work if the "Restrict Endpoint to Authenticated Users" WPGraphQL plugin option is turned off, rendering auth unnecessary.
+
 <p align="center">
   <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
     <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
